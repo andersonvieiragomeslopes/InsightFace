@@ -1,0 +1,57 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net10.0;net10.0-android;net10.0-ios</TargetFrameworks>
+    <UseMaui Condition="'$(TargetFramework)' != 'net10.0'">true</UseMaui>
+    <SingleProject Condition="'$(TargetFramework)' != 'net10.0'">true</SingleProject>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <LangVersion>latest</LangVersion>
+
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+
+    <IsPackable>true</IsPackable>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <PackageId>FaceAuth.Maui</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>FaceAuth Team</Authors>
+    <Company>FaceAuth</Company>
+    <Description>On-device face embeddings for recurring login (ArcFace/SCRFD) for .NET MAUI.</Description>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/owner/repo</RepositoryUrl>
+    <PackageTags>maui;face;biometric;onnx;insightface;mobile</PackageTags>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'net10.0'">
+    <PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ML.OnnxRuntime" Version="1.22.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Models/scrfd.onnx" />
+    <EmbeddedResource Include="Models/arcface.onnx" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0'">
+    <Compile Remove="Platform/Android/**" />
+    <Compile Remove="Platform/iOS/**" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0-android'">
+    <Compile Remove="Platform/iOS/**" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net10.0-ios'">
+    <Compile Remove="Platform/Android/**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="\" Link="README.md" />
+  </ItemGroup>
+</Project>

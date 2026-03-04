@@ -1,0 +1,15 @@
+.DS_Store
+.vs/
+.idea/
+*.user
+*.suo
+
+bin/
+obj/
+artifacts/
+
+TestResults/
+*.trx
+
+*.nupkg
+*.snupkg

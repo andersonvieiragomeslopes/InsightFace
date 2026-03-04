@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="FaceAuth.SampleApp.MainPage"
+             Title="FaceAuth Demo">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="12">
+            <Label Text="FaceAuth.Maui Demo"
+                   FontSize="24"
+                   FontAttributes="Bold" />
+
+            <Label Text="Fluxo: capture selfie -> embedding -> serialização -> comparação 1:1"
+                   FontSize="14"
+                   TextColor="#3A4A52" />
+
+            <Button Text="Initialize" Clicked="OnInitializeClicked" />
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                <Button Grid.Column="0" Text="Enroll Camera" Clicked="OnEnrollCameraClicked" />
+                <Button Grid.Column="1" Text="Enroll Gallery" Clicked="OnEnrollGalleryClicked" />
+            </Grid>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="8">
+                <Button Grid.Column="0" Text="Probe Camera" Clicked="OnProbeCameraClicked" />
+                <Button Grid.Column="1" Text="Probe Gallery" Clicked="OnProbeGalleryClicked" />
+            </Grid>
+
+            <Button Text="Compare 1:1" Clicked="OnCompareClicked" />
+
+            <BoxView HeightRequest="1" Color="#D0D7DE" Margin="0,6,0,6" />
+
+            <Label Text="Reference (Base64 preview):" FontAttributes="Bold" />
+            <Label x:Name="ReferenceLabel" Text="(empty)" FontSize="12" LineBreakMode="WordWrap" />
+
+            <Label Text="Probe (Base64 preview):" FontAttributes="Bold" />
+            <Label x:Name="ProbeLabel" Text="(empty)" FontSize="12" LineBreakMode="WordWrap" />
+
+            <Label x:Name="ResultLabel"
+                   Text="Result: -"
+                   FontSize="15"
+                   FontAttributes="Bold"
+                   TextColor="#0B6E4F" />
+
+            <Label x:Name="StatusLabel"
+                   Text="Status: not initialized"
+                   FontSize="12"
+                   LineBreakMode="WordWrap"
+                   TextColor="#2B3A42" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
