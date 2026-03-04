@@ -34,7 +34,7 @@ public partial class MainPage : ContentPage
         }
         catch (Exception ex)
         {
-            StatusLabel.Text = $"Status: init failed - {ex.Message}";
+            StatusLabel.Text = $"Status: init failed - {ex.GetType().Name}: {ex.Message}";
         }
     }
 
@@ -87,7 +87,7 @@ public partial class MainPage : ContentPage
         }
         catch (Exception ex)
         {
-            StatusLabel.Text = $"Status: enroll failed - {ex.Message}";
+            StatusLabel.Text = $"Status: enroll failed - {ex.GetType().Name}: {ex.Message}";
         }
     }
 
@@ -113,7 +113,7 @@ public partial class MainPage : ContentPage
         }
         catch (Exception ex)
         {
-            StatusLabel.Text = $"Status: probe failed - {ex.Message}";
+            StatusLabel.Text = $"Status: probe failed - {ex.GetType().Name}: {ex.Message}";
         }
     }
 
@@ -131,7 +131,9 @@ public partial class MainPage : ContentPage
         }
         else
         {
+#pragma warning disable CS0618 // PickPhotoAsync is currently more stable on several Android devices for single-image selection.
             file = await MediaPicker.Default.PickPhotoAsync();
+#pragma warning restore CS0618
         }
 
         if (file is null)
@@ -140,6 +142,11 @@ public partial class MainPage : ContentPage
         }
 
         await using var stream = await file.OpenReadAsync();
+        if (stream is null)
+        {
+            throw new InvalidOperationException("MediaPicker returned a file but OpenReadAsync produced null stream.");
+        }
+
         using var memory = new MemoryStream();
         await stream.CopyToAsync(memory);
         return memory.ToArray();
