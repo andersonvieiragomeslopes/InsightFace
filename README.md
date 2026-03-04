@@ -142,6 +142,21 @@ This repository includes placeholders at:
 
 Replace with real ONNX binaries before production use.
 
+Recommended source package for SCRFD + ArcFace:
+
+- Official InsightFace Model Zoo link (Google Drive): [buffalo_l.zip](https://drive.google.com/file/d/1qXsQJ8ZT42_xSmWIYy85IcidpiZudOCB/view?usp=sharing)
+- Mirror (SourceForge): [buffalo_l.zip](https://sourceforge.net/projects/insightface.mirror/files/v0.7/buffalo_l.zip/download)
+
+After download/extract, use:
+
+- `det_10g.onnx` (SCRFD)
+- `w600k_r50.onnx` (ArcFace)
+
+Copy/rename to:
+
+- `src/FaceAuth.Maui/Models/scrfd.onnx` <- `det_10g.onnx`
+- `src/FaceAuth.Maui/Models/arcface.onnx` <- `w600k_r50.onnx`
+
 You are responsible for validating model provenance and license terms from the InsightFace ecosystem and keeping attribution/compliance in your distribution.
 
 ## Repository Layout
